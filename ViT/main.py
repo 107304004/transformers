@@ -7,6 +7,7 @@ from torchvision.datasets import CIFAR10
 from torchvision.models import vit_b_16
 from tqdm import tqdm
 
+from model import ViT
 
 # Set device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -31,9 +32,9 @@ train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 
 # Model
-model = vit_b_16()
-# print(model)
-model.heads.head = nn.Linear(model.heads.head.in_features, 10)
+model = ViT(image_size=224, patch_size=16, num_classes=10, dim=128 ,depth=12,heads=8,mlp_dim=256)
+#print(model)
+#model.heads.head = nn.Linear(model.heads.head.in_features, 10)
 # print(model)
 model.to(device)
 
