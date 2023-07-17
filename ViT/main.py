@@ -12,7 +12,7 @@ from tqdm import tqdm
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Hyperparameters
-num_epochs = 10
+num_epochs = 15
 batch_size = 128
 learning_rate = 0.0001
 
@@ -22,7 +22,7 @@ transform = transforms.Compose([
     transforms.ToTensor(),
 ])
 
-# CIFAR-10 dataset (train:5000o, test:10000)
+# CIFAR-10 dataset (train:50000, test:10000)
 train_dataset = CIFAR10(root="../data", train=True, download=True, transform=transform)
 test_dataset = CIFAR10(root="../data", train=False, download=True, transform=transform)
 
@@ -36,6 +36,7 @@ model = vit_b_16()
 model.heads.head = nn.Linear(model.heads.head.in_features, 10)
 # print(model)
 model.to(device)
+# model.load_state_dict(torch.load('./checkpoint/ViT.ckpt'))
 
 # Loss function and optimizer
 criterion = nn.CrossEntropyLoss()
@@ -61,6 +62,11 @@ for epoch in range(num_epochs):
 
     # Print training progress
     print(f"Epoch [{epoch+1}/{num_epochs}], Loss: {total_loss}")
+
+
+torch.save(model.state_dict(), './checkpoint/ViT.ckpt')
+model.load_state_dict(torch.load('./checkpoint/ViT.ckpt'))
+
 
 # Evaluation
 model.eval()
