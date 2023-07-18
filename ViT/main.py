@@ -13,7 +13,7 @@ from model import ViT
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # Hyperparameters
-num_epochs = 15
+num_epochs = 5
 batch_size = 128
 learning_rate = 0.0001
 
@@ -32,11 +32,19 @@ train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
 test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
 
 # Model
-model = ViT(image_size=224, patch_size=16, num_classes=10, dim=128 ,depth=12,heads=8,mlp_dim=256)
-#print(model)
-#model.heads.head = nn.Linear(model.heads.head.in_features, 10)
-# print(model)
+# handcraft ViT
+print("Handcraft ViT:")
+model = ViT(image_size=224, patch_size=16, num_classes=10, dim=768, depth=12, heads=12, mlp_dim=3072)
 model.to(device)
+
+
+# Torch ViT
+# print("Torch ViT")
+# model = vit_b_16()
+# # print(model)
+# model.heads.head = nn.Linear(model.heads.head.in_features, 10)
+# # print(model)
+# model.to(device)
 # model.load_state_dict(torch.load('./checkpoint/ViT.ckpt'))
 
 # Loss function and optimizer
@@ -65,8 +73,8 @@ for epoch in range(num_epochs):
     print(f"Epoch [{epoch+1}/{num_epochs}], Loss: {total_loss}")
 
 
-torch.save(model.state_dict(), './checkpoint/ViT.ckpt')
-model.load_state_dict(torch.load('./checkpoint/ViT.ckpt'))
+# torch.save(model.state_dict(), './checkpoint/ViT.ckpt')
+# model.load_state_dict(torch.load('./checkpoint/ViT.ckpt'))
 
 
 # Evaluation

@@ -5,12 +5,10 @@ from einops import rearrange, repeat
 from einops.layers.torch import Rearrange
 
 # helpers
-
 def pair(t):
     return t if isinstance(t, tuple) else (t, t)
 
 # classes
-
 class PreNorm(nn.Module):
     def __init__(self, dim, fn):
         super().__init__()
@@ -33,7 +31,7 @@ class FeedForward(nn.Module):
         return self.net(x)
 
 class Attention(nn.Module):
-    def __init__(self, dim, heads = 8, dim_head = 64, dropout = 0.):
+    def __init__(self, dim, heads, dim_head, dropout = 0.):
         super().__init__()
         inner_dim = dim_head *  heads
         project_out = not (heads == 1 and dim_head == dim)
