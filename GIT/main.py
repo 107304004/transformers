@@ -83,4 +83,4 @@ if __name__ == '__main__':
         run_exp(val_dataloader, model_coco.to(device))
 
     if args.run == "inference":
-        inference(args.img, model_coco)
+        inference(args.img, model_finetuned)
