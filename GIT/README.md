@@ -1,4 +1,4 @@
-GIT small exp.
+GIT small exp.<br>
 Compare git-base, git-base(fine-tuned), git-base-coco on COCO2017 dataset
 ```bash
 ./download.sh
