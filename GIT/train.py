@@ -110,4 +110,7 @@ for epoch in range(epochs):
 print("Finish")
 
 # save model
+import os
+if not os.path.exists("./checkpoint"):
+    os.makedirs("./checkpoint")
 torch.save(model.state_dict(), f'./checkpoint/git-base-fine-tuned-{epochs}epochs.ckpt')
