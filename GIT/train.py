@@ -10,7 +10,7 @@ from tqdm import tqdm
 
 
 # set hyper parameters and device
-epochs = 10
+epochs = 5 # 10 will be overfitting
 batch_size = 32 # 512 cause CUDA out of memory
 lr = 2.5e-6
 
@@ -110,4 +110,4 @@ for epoch in range(epochs):
 print("Finish")
 
 # save model
-torch.save(model.state_dict(), './checkpoint/git-base-fine-tuned.ckpt')
+torch.save(model.state_dict(), f'./checkpoint/git-base-fine-tuned-{epochs}epochs.ckpt')
